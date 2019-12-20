@@ -1,0 +1,177 @@
+<!-- Login View -->
+<div class="container" *ngIf="loginView">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="justify-content-md-center mt-5">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Login</h3>
+                    </div>
+                </div>
+
+                <ngb-alert *ngIf="successMessage" type="{{successMessage.type}}" (close)="closeAlert()">{{ successMessage.message }}</ngb-alert>
+
+                <form name="loginform" [formGroup]="loginFormGroup">
+                    <div class="row">
+                        <!-- Email Field -->
+                        <div class="form-group col-12">
+                            <label for="loginEmail">Email address</label>
+                            <input type="email" name="loginEmail" class="form-control col-12" id="loginEmail"
+                                aria-describedby="emailHelp" placeholder="Enter email" required autocomplete="off"
+                                formControlName="loginEmail"
+                                [ngClass]="{'is-invalid' : loginFormGroup.get('loginEmail').touched && loginFormGroup.get('loginEmail').invalid}">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                            <div class="invalid-feedback"
+                                *ngIf="loginFormGroup.get('loginEmail').touched && loginFormGroup.get('loginEmail').invalid">
+                                <div *ngIf="loginFormGroup.get('loginEmail').errors.required">Email address is required
+                                </div>
+                                <div *ngIf="loginFormGroup.get('loginEmail').errors.email">Invalid email address</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!-- Password field -->
+                        <div class="form-group col-12">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" name="loginPassword" class="form-control col-12" id="password"
+                                placeholder="Password" formControlName="loginPassword"
+                                [ngClass]="{'is-invalid' : loginFormGroup.get('loginPassword').touched && loginFormGroup.get('loginPassword').invalid}">
+                            <div class="invalid-feedback"
+                                *ngIf="loginFormGroup.get('loginPassword').touched && loginFormGroup.get('loginPassword').invalid">
+                                <div *ngIf="loginFormGroup.get('loginPassword').errors.required">Password is required
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Buttons -->
+                            <button type="submit" class="btn btn-primary" (click)="login()"
+                                [disabled]="!loginFormGroup.valid">Login</button>
+                            <button class="btn btn-secondary mx-2" (click)="viewToggle('true')">Sign up instead</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="col"></div>
+    </div>
+
+</div>
+
+<!-- Sign up view -->
+<div class="container justify-content-center" *ngIf="!loginView">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="mt-5">
+                <h3>Sign up</h3>
+            </div>
+            <form name="signupForm" [formGroup]="signupFormGroup">
+                <div class="form-row">
+                    <!-- First name field -->
+                    <div class="col-6">
+                        <label for="firstname">First name</label>
+                        <input type="text" name="signupFirstName" class="form-control" placeholder="First name"
+                            formControlName="signupFirstName"
+                            [ngClass]="{'is-invalid' : signupFormGroup.get('signupFirstName').touched && signupFormGroup.get('signupFirstName').invalid }">
+
+                        <div class="invalid-feedback"
+                            *ngIf="signupFormGroup.get('signupFirstName').touched && signupFormGroup.get('signupFirstName').invalid">
+                            <div *ngIf="signupFormGroup.get('signupFirstName').errors.required">First Name is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- Last name field -->
+                        <label for="lastname">Last name</label>
+                        <input type="text" name="lastname" class="form-control" placeholder="Last name"
+                            formControlName="signupLastName"
+                            [ngClass]="{'is-invalid' : signupFormGroup.get('signupLastName').touched && signupFormGroup.get('signupLastName').invalid }">
+                        <div class="invalid-feedback"
+                            *ngIf="signupFormGroup.get('signupLastName').touched && signupFormGroup.get('signupLastName').invalid">
+                            <div *ngIf="signupFormGroup.get('signupLastName').errors.required">Last Name is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mt-3">
+                    <div class="col-12">
+                        <!-- Email address field -->
+                        <label for="signupEmail">Email address</label>
+                        <input type="text" name="signupEmail" class="form-control" placeholder="Email Address"
+                            formControlName="signupEmail"
+                            [ngClass]="{'is-invalid' : signupFormGroup.get('signupEmail').touched && signupFormGroup.get('signupEmail').invalid }">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                        <div class="invalid-feedback"
+                            *ngIf="signupFormGroup.get('signupEmail').touched && signupFormGroup.get('signupEmail').invalid">
+                            <div *ngIf="signupFormGroup.get('signupEmail').errors.required">Email address is required
+                            </div>
+                            <div *ngIf="signupFormGroup.get('signupEmail').errors.email">Invalid email address</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-row mt-3">
+                    <div class="col-12">
+                        <!-- Password field -->
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password"
+                            formControlName="signupPassword"
+                            [ngClass]="{'is-invalid' : signupFormGroup.get('signupPassword').touched && signupFormGroup.get('signupPassword').invalid }">
+
+                        <div class="invalid-feedback"
+                            *ngIf="signupFormGroup.get('signupPassword').touched && signupFormGroup.get('signupPassword').invalid">
+                            <div *ngIf="signupFormGroup.get('signupPassword').errors.required">Password is required
+                            </div>
+                            <div *ngIf="signupFormGroup.get('signupPassword').errors.minlength">Password must be atleast
+                                6 characters
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mt-3">
+                    <div class="col-12">
+                        <!-- Password match field -->
+                        <label for="exampleInputPassword2">Confirm Password</label>
+                        <input type="text" name="Confirmpassword" class="form-control" placeholder="Confirm Password"
+                            formControlName="signupMatchPassword"
+                            pattern="{{ this.signupFormGroup.get('signupPassword').value }}"
+                            [ngClass]="{'is-invalid' : signupFormGroup.get('signupMatchPassword').touched && signupFormGroup.get('signupMatchPassword').invalid && signupFormGroup.get('signupMatchPassword').value != signupFormGroup.get('signupPassword')}">
+
+                        <div class="invalid-feedback"
+                            *ngIf="signupFormGroup.get('signupMatchPassword').touched && signupFormGroup.get('signupMatchPassword').invalid || (signupFormGroup.get('signupMatchPassword').value != signupFormGroup.get('signupPassword').value)">
+                            <div *ngIf="signupFormGroup.get('signupMatchPassword').errors.required">Confirm Password is
+                                required</div>
+                            <div *ngIf="signupFormGroup.get('signupMatchPassword').errors.minlength">Confirm Password
+                                must be atleast 6 characters
+                            </div>
+                            <div
+                                *ngIf="signupFormGroup.get('signupMatchPassword').value != signupFormGroup.get('signupPassword').value">
+                                Password & Confirm Password does not match.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <!-- Buttons -->
+                    <button class="btn btn-primary" type="submit" (click)="signup()"
+                        [disabled]="!signupFormGroup.valid">Sign up</button>
+                    <button class="btn btn-secondary mx-2" type="" (click)="viewToggle('false')">or, Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>

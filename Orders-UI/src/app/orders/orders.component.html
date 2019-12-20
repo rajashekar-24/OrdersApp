@@ -1,0 +1,92 @@
+<div class="container-fluid">
+  <div class="row mt-4 mb-2">
+
+    <!-- Alerts -->
+    <ngb-alert *ngIf="successMessage" type="{{successMessage.type}}" (close)="closeAlert()">{{ successMessage.message }}</ngb-alert>
+    <!--End of Alert  -->
+
+    <div class="col-12 mb-1" align="right">
+      <button class="btn btn-primary" (click)="open(content);update=false;Submitbutton='Save'">Add New Order</button>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col ">Order Number</th>
+          <th scope="col">Order Due Date</th>
+          <th scope="col">Customer buyer name</th>
+          <th scope="col">Customer Address</th>
+          <th scope="col">Customer Phone</th>
+          <th scope="col">OrderTotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items; let i = index; ">
+          <th scope="row">{{i+1}}{{item.OrderNumber}}</th>
+          <td>{{item.OrderDueDate}}</td>
+          <td>{{item.CustomerBuyerName}}</td>
+          <td>{{item.CustomerAddress}}</td>
+          <td>{{item.CustomerPhone}}</td>
+          <td>{{item.OrderTotal}}</td>
+          <td>
+            <a class="action-btn mr-2">
+              <i class="fa fa-pencil fa-lg pointer" aria-hidden="true"
+                (click)="onEdit(item, content);Submitbutton='Update'"></i>
+            </a>
+            <a class="action-btn">
+              <i class="fa fa-trash fa-lg" (click)="onDelete(item._id)"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Bootstrap Modal -->
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New Order</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #OrderForm="ngForm">
+
+          <div class="form-group">
+            <label for="CustomerBuyerName">Customer Buyer Name</label>
+            <input type="text" class="form-control" id="CustomerBuyerName" name="CustomerBuyerName"
+              aria-describedby="emailHelp" placeholder="Enter Customer Buyer Name"
+              [(ngModel)]="SelectedOrder.CustomerBuyerName" required>
+          </div>
+          <div class="form-group">
+            <label for="CustomerPhone">Customer Phone</label>
+            <input type="text" class="form-control" id="CustomerPhone" name="CustomerPhone" aria-describedby="emailHelp"
+              placeholder="Enter Customer Phone" [(ngModel)]="SelectedOrder.CustomerPhone" required>
+          </div>
+          <div class="form-group">
+            <label for="OrderTotal">Order Total</label>
+            <input type="text" class="form-control" id="OrderTotal" name="OrderTotal" aria-describedby="emailHelp"
+              placeholder="Enter Order Total" [(ngModel)]="SelectedOrder.OrderTotal" required>
+          </div>
+          <div class="form-group">
+            <label for="CustomerAddress">Customer Address</label>
+            <input type="text" class="form-control" id="CustomerAddress" name="CustomerAddress"
+              aria-describedby="emailHelp" placeholder="Enter Customer Address"
+              [(ngModel)]="SelectedOrder.CustomerAddress" required>
+          </div>
+          <div class="form-group">
+            <label for="OrderDueDate">Order DueDate</label>
+            <input type="date" id="OrderDueDate" name="OrderDueDate" class="form-control" placeholder="yyyy-mm-dd"
+              [(ngModel)]="SelectedOrder.OrderDueDate">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger w-50" (click)="modal.close('Cancel')">Cancel</button>
+        <button type="button" class="btn btn-primary w-50" [disabled]="!OrderForm.valid"
+          (click)="modal.close('Submit Order');update?onUpdate(OrderForm,editId):submitOrder(OrderForm)">{{Submitbutton}}</button>
+      </div>
+    </ng-template>
+    <hr>
+  </div>
+</div>
