@@ -1,7 +1,6 @@
 1) Used Nodejs/Expressjs framework as backend for the orders application(Ordes-Express folder name) 
 a. Mongoose driver is used for connectivity between expressjs and mongodb(MongoDB server was running on localhost:27017 and NodeJS at localhost:3000 ports) 
-b. app.js having all routes configured 
-c. app.js is used to run the nodeJS at local host 8083 
+b. app.js having all routes configured and it is used to run the nodeJS at localhost:3000 
 d. Models folder has files which defines the data models for orders and users. 
 e. Controllers folder has all routes configured for orders in OrderController and userController for User (CRUD operations)
 f. After login, jwt token will be generated with user details. 
